@@ -51,21 +51,24 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dir = txtDir.getText();
 				remoteSrc = txtRemote.getText();
-				/*
+			
 				String[] init = { "cmd", "/c", "git", "init"}; 
+				String[] add = { "cmd", "/c", "git", "add", "."}; 
 				String[] commit = {"cmd", "/c", "git", "commit", "-m", "test"};
 				String[] remote = {"cmd", "/c", "git", "remote", "add", "origin", remoteSrc};
 				String[] push = {"cmd", "/c", "git", "push", "-u", "origin", "master"};
 				
 				performgit(init);
+				performgit(add);
 				performgit(commit);
 				performgit(remote);
 				performgit(push);
-				*/
+				/*
 				String[] add = { "cmd", "/c", "git", "add", "."}; 
 				String[] commit = {"cmd", "/c", "git", "commit", "-m", "test"};
 				performgit(add);
 				performgit(commit);
+				*/
 			}
 
 			private void performgit(String[] str) {
