@@ -10,6 +10,7 @@ import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -50,17 +51,28 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dir = txtDir.getText();
 				remoteSrc = txtRemote.getText();
-				
-				String[] init = { "cmd", "/c", "git", "add", "."}; 
-				String[] commit = {"cmd", "/c", "git", "commit", "-m", "first commit"};
+				/*
+				String[] init = { "cmd", "/c", "git", "init"}; 
+				String[] commit = {"cmd", "/c", "git", "commit", "-m", "test"};
 				String[] remote = {"cmd", "/c", "git", "remote", "add", "origin", remoteSrc};
 				String[] push = {"cmd", "/c", "git", "push", "-u", "origin", "master"};
 				
-				Process process = null;
-				 
+				performgit(init);
+				performgit(commit);
+				performgit(remote);
+				performgit(push);
+				*/
+				String[] add = { "cmd", "/c", "git", "add", "."}; 
+				String[] commit = {"cmd", "/c", "git", "commit", "-m", "test"};
+				performgit(add);
+				performgit(commit);
+			}
+
+			private void performgit(String[] str) {
+				// TODO Auto-generated method stub
 				try {
 					
-					process = new ProcessBuilder(init).directory(new File(dir)).start();
+					Process process = new ProcessBuilder(str).directory(new File(dir)).start();
 				
 					// SequenceInputStream은 여러개의 스트림을 하나의 스트림으로 연결해줌.
 					SequenceInputStream seqIn = new SequenceInputStream(
@@ -70,16 +82,15 @@ public class MainFrame extends JFrame {
 					Scanner s = new Scanner(seqIn);
 		 
 					while (s.hasNextLine() == true) {
-						String str = s.nextLine();
-						System.out.println(str);
-						txaResult.append(str);
+						String strResult = s.nextLine();
+						System.out.println(strResult);
+						txaResult.append(strResult + '\n');
 					}
 		 
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
 			}
 		});
 	}
@@ -89,7 +100,7 @@ public class MainFrame extends JFrame {
 		c.add(txtDir);
 		c.add(lblRemote);
 		c.add(txtRemote);
-		c.add(txaResult);
+		c.add(new JScrollPane(txaResult));
 		c.add(btnInit);
 		c.add(btnClone);
 	}
